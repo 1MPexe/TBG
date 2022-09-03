@@ -1,0 +1,20 @@
+{
+  "Tree Branch": {
+    "ItemCategory": "Resource",
+    "StackSize": 99,
+    "Description": "A sturdy tree branch."
+  },
+  "Potion": {
+   "ItemCategory": "Consumable",
+   "AddHealth": 20,
+   "AddEnergy": 5,
+   "StackSize": 99,
+   "Description": "It seems to be medicine."
+  },
+  "Iron Sword": {
+    "ItemCategory": "Sword",
+    "ItemAttack": 8,
+    "StackSize": 1,
+    "Description": "A worn down sword. It's seen many battles."
+  }
+}
