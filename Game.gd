@@ -9,7 +9,6 @@ export (int) var max_lines_remembered := 25
 
 var max_scroll_length := 0
 
-onready var command_processor = $CommandProcessor
 onready var history_rows = $BackGround/TextArea/GameInfo/Scroll/HistoryRows
 onready var scroll = $BackGround/TextArea/GameInfo/Scroll
 onready var scrollbar = scroll.get_v_scrollbar()
@@ -33,7 +32,7 @@ func _on_Input_text_entered(new_text: String) -> void:
 		return
 
 	var input_response =InputResponse.instance()
-	var response = command_processor.process_command(new_text)
+	var response = Actions.process_command(new_text)
 	input_response.set_text(new_text, response)
 	history_rows.add_child(input_response)
 
