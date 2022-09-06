@@ -626,7 +626,67 @@ margin_bottom = 584.0
 color = Color( 0.247059, 0.247059, 0.247059, 1 )
 script = ExtResource( 18 )
 
-[node name="PlayerButton" type="Button" parent="Background/Menus"]
+[node name="Tabs" type="Control" parent="Background/Menus"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PlayerTab" type="ColorRect" parent="Background/Menus/Tabs"]
+visible = false
+margin_left = 224.0
+margin_top = -416.0
+margin_right = 760.0
+margin_bottom = -104.0
+color = Color( 0.364706, 0.364706, 0.364706, 1 )
+
+[node name="Label" type="Label" parent="Background/Menus/Tabs/PlayerTab"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "PLAYER"
+
+[node name="SkillTab" type="ColorRect" parent="Background/Menus/Tabs"]
+visible = false
+margin_left = 224.0
+margin_top = -416.0
+margin_right = 760.0
+margin_bottom = -104.0
+color = Color( 0.364706, 0.364706, 0.364706, 1 )
+
+[node name="Label" type="Label" parent="Background/Menus/Tabs/SkillTab"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "SKILLS"
+
+[node name="OptionsTab" type="ColorRect" parent="Background/Menus/Tabs"]
+visible = false
+margin_left = 216.0
+margin_top = -424.0
+margin_right = 992.0
+margin_bottom = 144.0
+color = Color( 0.364706, 0.364706, 0.364706, 1 )
+
+[node name="Label" type="Label" parent="Background/Menus/Tabs/OptionsTab"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "OPTIONS"
+
+[node name="MenuTab" type="ColorRect" parent="Background/Menus/Tabs"]
+visible = false
+margin_left = 216.0
+margin_top = -424.0
+margin_right = 992.0
+margin_bottom = 144.0
+color = Color( 0.364706, 0.364706, 0.364706, 1 )
+
+[node name="Label" type="Label" parent="Background/Menus/Tabs/MenuTab"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "MENU"
+
+[node name="Buttons" type="Control" parent="Background/Menus"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="PlayerButton" type="Button" parent="Background/Menus/Buttons"]
 margin_left = 16.0
 margin_top = 24.0
 margin_right = 96.0
@@ -640,11 +700,8 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 keep_pressed_outside = true
 text = "PLAYER"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="SkillsButton" type="Button" parent="Background/Menus"]
+[node name="SkillsButton" type="Button" parent="Background/Menus/Buttons"]
 margin_left = 104.0
 margin_top = 24.0
 margin_right = 184.0
@@ -657,7 +714,7 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "SKILLS"
 
-[node name="OptionsButton" type="Button" parent="Background/Menus"]
+[node name="OptionsButton" type="Button" parent="Background/Menus/Buttons"]
 margin_left = 16.0
 margin_top = 80.0
 margin_right = 96.0
@@ -670,7 +727,7 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "OPTIONS"
 
-[node name="MenuButton" type="Button" parent="Background/Menus"]
+[node name="MenuButton" type="Button" parent="Background/Menus/Buttons"]
 margin_left = 104.0
 margin_top = 80.0
 margin_right = 184.0
@@ -683,39 +740,6 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "MENU"
 
-[node name="PlayerTab" type="ColorRect" parent="Background/Menus"]
-visible = false
-margin_left = 224.0
-margin_top = -416.0
-margin_right = 760.0
-margin_bottom = -104.0
-color = Color( 0.364706, 0.364706, 0.364706, 1 )
-
-[node name="SkillTab" type="ColorRect" parent="Background/Menus"]
-visible = false
-margin_left = 224.0
-margin_top = -416.0
-margin_right = 760.0
-margin_bottom = -104.0
-color = Color( 0.364706, 0.364706, 0.364706, 1 )
-
-[node name="MenuTab" type="ColorRect" parent="Background/Menus"]
-visible = false
-margin_left = 216.0
-margin_top = -424.0
-margin_right = 992.0
-margin_bottom = 144.0
-color = Color( 0.364706, 0.364706, 0.364706, 1 )
-
-[node name="OptionsTab" type="ColorRect" parent="Background/Menus"]
-visible = false
-margin_left = 216.0
-margin_top = -424.0
-margin_right = 992.0
-margin_bottom = 144.0
-color = Color( 0.364706, 0.364706, 0.364706, 1 )
-
 [connection signal="pressed" from="Background/VisualArea/Visual/Fight" to="Background/VisualArea/Visual/Fight" method="_on_Fight_pressed"]
 [connection signal="text_entered" from="Background/TextArea/Input" to="." method="_on_Input_text_entered"]
 [connection signal="text_entered" from="Background/TextArea/Input" to="Background/TextArea/Input" method="_on_Input_text_entered"]
-[connection signal="pressed" from="Background/Menus/MenuButton" to="Background/Menus/MenuButton" method="_on_MenuButton_pressed"]
