@@ -17,6 +17,7 @@ func _ready():
 	
 	if randi() % 2 == 0:
 		item = ItemClass.instance()
+		item.z_index = 0
 		add_child(item)
 	refresh_style()
 
