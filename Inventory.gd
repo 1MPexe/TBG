@@ -46,6 +46,6 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 				holding_item.global_position = get_global_mouse_position()
 				
 #Update the holding items global position to follow cursor
-func _input(event):
+func _input(_event):
 	if holding_item:
 		holding_item.global_position = get_global_mouse_position()

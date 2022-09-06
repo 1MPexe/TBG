@@ -5,12 +5,14 @@ const InputResponse = preload("res://InputResponse.tscn")
 const Response = preload("res://Response.tscn")
 
 
+
 export (int) var max_lines_remembered := 25
 
 var max_scroll_length := 0
 
-onready var history_rows = $BackGround/TextArea/GameInfo/Scroll/HistoryRows
-onready var scroll = $BackGround/TextArea/GameInfo/Scroll
+
+onready var history_rows = $Background/TextArea/GameInfo/Scroll/HistoryRows
+onready var scroll = $Background/TextArea/GameInfo/Scroll
 onready var scrollbar = scroll.get_v_scrollbar()
 
 

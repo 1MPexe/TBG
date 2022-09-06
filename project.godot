@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 JsonData="*res://JSONData.gd"
 Actions="*res://Global/Actions.gd"
+State="*res://Global/State.gd"
 
 [display]
 
