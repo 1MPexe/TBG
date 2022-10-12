@@ -60,16 +60,23 @@ func help() -> String:
 
 enum {COMMAND,ENEMY,INDEX}
 
+# Attack a specified enemy
 func attack(words : Array) -> String:
-	if !words[INDEX] : return "Enemy not specified"
+
+	# Check if command prarmeters exist
+	if words.size() == 1: return "Attack what?"
+	if words.size() == 2: return "Enemy not specified"
+	if words.size() > 3: return "Too many Parameters"
+
+	# This is the number the player typed in -1
 	var index = int(words[INDEX]) - 1
-	if words[ENEMY] == "":
-		return "Attack what?"
-	
-	if index <= Core.active_enemies.size():
-		Core.active_enemies[index].attack(10)
-		
-		 
-		
-		pass
+
+	# Check if the INDEX is a valid number.
+	if index <= -1: return "Enemy not specified (Type a number)"
+
+	# If the enemy the player wants to attack is not in the array of enemies
+	if index > Core.active_enemies.size(): return "There is no %s %s" % [words[ENEMY], words[INDEX]]
+
+	Core.active_enemies[index].attack(10)
+
 	return "You attack the %s!" % words[ENEMY]
