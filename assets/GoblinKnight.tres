@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Resource
+
+export(String) var name = \"Enemy\"
+export(Texture) var texture = null
+export(int) var health = 30
+export(int) var damage = 5
+"
+
+[resource]
+script = SubResource( 1 )
+name = "Goblin Knight"
+health = 30
+damage = 5

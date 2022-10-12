@@ -1,5 +1,7 @@
 extends Node
 
+signal next_turn()
+
 # Prevents the command line from processing empty commands.
 func process_command(input: String) -> String:
 	var words = input.split(" ", false)
@@ -7,22 +9,33 @@ func process_command(input: String) -> String:
 		return "Error: no words were parsed."
 		
 	var first_word = words[0].to_lower()
-	var second_word = ""
+	
+	var second_word
 	if words.size() > 1:
 		second_word = words[1].to_lower()
+	
+	var third_word 
+	if words.size() > 2:
+		third_word = words[2].to_lower()
+
 
 #  List of all available commands.
 	match first_word:
 		"go": 
-			return go(second_word)
+			emit_signal("next_turn") 
+			return go(words[1])
 		"help":
+			emit_signal("next_turn") 
 			return help()
 		"attack":
-			return attack(second_word)
+			emit_signal("next_turn") 
+			return attack(words)
 		"i'm":
-			return im(second_word)
+			emit_signal("next_turn") 
+			return im(words[1])
 		_:
 			return "Unrecognized command."
+			
 
 
 func im(second_word: String) -> String:
@@ -45,8 +58,18 @@ func help() -> String:
 	return "You can use these commands: 'go [location]' , 'help' , 'attack [thing]'"
 
 
-func attack(second_word: String) -> String:
-	if second_word == "":
+enum {COMMAND,ENEMY,INDEX}
+
+func attack(words : Array) -> String:
+	if !words[INDEX] : return "Enemy not specified"
+	var index = int(words[INDEX]) - 1
+	if words[ENEMY] == "":
 		return "Attack what?"
 	
-	return "You attack the %s!" % second_word
+	if index <= Core.active_enemies.size():
+		Core.active_enemies[index].attack(10)
+		
+		 
+		
+		pass
+	return "You attack the %s!" % words[ENEMY]

@@ -5,6 +5,7 @@
 [ext_resource path="res://assets/Fonts/m5x7.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
+size = 19
 font_data = ExtResource( 3 )
 
 [node name="Item" type="Node2D"]
@@ -12,25 +13,19 @@ z_index = 1
 script = ExtResource( 2 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_right = 32.0
-margin_bottom = 32.0
+margin_right = 48.0
+margin_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource( 1 )
 expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
-margin_left = 13.4802
-margin_top = 18.2049
-margin_right = 29.4802
-margin_bottom = 32.2049
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 44.0
+margin_bottom = 40.0
 rect_scale = Vector2( 1.2, 1.2 )
 custom_fonts/font = SubResource( 1 )
 text = "99"
 align = 2
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}

@@ -19,9 +19,13 @@ config/icon="res://icon.png"
 JsonData="*res://JSONData.gd"
 Actions="*res://Global/Actions.gd"
 State="*res://Global/State.gd"
+Ply="*res://Global/Player.gd"
+Core="*res://Global/core.gd"
 
 [display]
 
+window/size/width=1280
+window/size/height=720
 window/size/resizable=false
 window/stretch/mode="viewport"
 

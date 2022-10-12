@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://assets/interface concept.png" type="Texture" id=1]
 [ext_resource path="res://LineEdit.gd" type="Script" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/Fonts/PRESSSTART2P-VAV7.TTF" type="DynamicFontData" id=4]
 [ext_resource path="res://assets/Healthbar.tres" type="Theme" id=5]
 [ext_resource path="res://assets/Manabar.tres" type="Theme" id=6]
-[ext_resource path="res://Fight.gd" type="Script" id=7]
 [ext_resource path="res://Slots.gd" type="Script" id=8]
 [ext_resource path="res://assets/Item_icons/item_slot_default_background.png" type="Texture" id=9]
 [ext_resource path="res://Inventory.gd" type="Script" id=10]
@@ -115,54 +114,64 @@ font_data = ExtResource( 4 )
 script = ExtResource( 3 )
 
 [node name="interface concept" type="Sprite" parent="."]
-position = Vector2( 1608, 1360 )
-scale = Vector2( 1.56273, 1.51546 )
+visible = false
+position = Vector2( 2013.63, 1632 )
+scale = Vector2( 1.95016, 1.81156 )
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Background" type="ColorRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1280.0
+margin_bottom = 720.0
 theme = SubResource( 1 )
 color = Color( 0.176471, 0.176471, 0.176471, 1 )
-__meta__ = {
-"_edit_lock_": true,
-"_edit_use_anchors_": false
-}
 
-[node name="PlayerFrame" type="ColorRect" parent="Background"]
+[node name="PlayerFrame" type="ColorRect" parent="."]
 margin_left = 16.0
 margin_top = 16.0
-margin_right = 216.0
-margin_bottom = 424.0
+margin_right = 264.0
+margin_bottom = 520.0
 rect_pivot_offset = Vector2( 40, 136 )
 color = Color( 0.247059, 0.247059, 0.247059, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="PlayerName" type="Label" parent="Background/PlayerFrame"]
+[node name="PlayerName" type="Label" parent="PlayerFrame"]
 margin_left = 16.0
 margin_top = 16.0
-margin_right = 184.0
+margin_right = 232.0
 margin_bottom = 56.0
+size_flags_vertical = 1
 custom_fonts/font = ExtResource( 13 )
 text = "PLAYER"
 align = 1
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="HealthBar" type="ProgressBar" parent="Background/PlayerFrame"]
+[node name="HealthBar" type="ProgressBar" parent="PlayerFrame"]
 margin_left = 16.0
-margin_top = 79.0
-margin_right = 184.0
-margin_bottom = 95.0
+margin_top = 160.0
+margin_right = 232.0
+margin_bottom = 175.0
 theme = ExtResource( 5 )
+step = 1.0
+value = 50.0
+percent_visible = false
+
+[node name="PlayerHealth" type="Label" parent="PlayerFrame/HealthBar"]
+margin_top = -26.0
+margin_right = 216.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 12 )
+text = "Health : 50/100"
+align = 1
+valign = 1
+
+[node name="ManaBar" type="ProgressBar" parent="PlayerFrame"]
+margin_left = 16.0
+margin_top = 224.0
+margin_right = 232.0
+margin_bottom = 240.0
+theme = ExtResource( 6 )
+custom_styles/fg = SubResource( 2 )
+custom_styles/bg = SubResource( 3 )
 max_value = 150.0
 step = 1.0
 value = 50.0
@@ -171,50 +180,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerHealth" type="Label" parent="Background/PlayerFrame/HealthBar"]
-margin_top = -24.0
-margin_right = 168.0
-margin_bottom = -1.0
-custom_fonts/font = ExtResource( 12 )
-text = "Health : 50/150"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ManaBar" type="ProgressBar" parent="Background/PlayerFrame"]
-margin_left = 16.0
-margin_top = 144.0
-margin_right = 184.0
-margin_bottom = 160.0
-theme = ExtResource( 6 )
-custom_styles/fg = SubResource( 2 )
-custom_styles/bg = SubResource( 3 )
-step = 1.0
-value = 50.0
-percent_visible = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerMana" type="Label" parent="Background/PlayerFrame/ManaBar"]
+[node name="PlayerMana" type="Label" parent="PlayerFrame/ManaBar"]
 anchor_top = -0.364
-margin_top = -15.264
-margin_right = 168.0
+margin_top = -18.176
+margin_right = 216.0
 custom_fonts/font = ExtResource( 12 )
-text = "Spirit : 50/100"
+text = "Spirit : 50/150"
 align = 1
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LustBar" type="ProgressBar" parent="Background/PlayerFrame"]
+[node name="DesireBar" type="ProgressBar" parent="PlayerFrame"]
 margin_left = 16.0
-margin_top = 208.0
-margin_right = 184.0
-margin_bottom = 224.0
+margin_top = 288.0
+margin_right = 232.0
+margin_bottom = 304.0
 theme = SubResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_styles/fg = SubResource( 7 )
@@ -227,11 +209,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerLust" type="Label" parent="Background/PlayerFrame/LustBar"]
+[node name="PlayerDesire" type="Label" parent="PlayerFrame/DesireBar"]
 anchor_top = -0.364
-margin_top = -15.72
-margin_right = 168.0
-margin_bottom = 1.0
+margin_top = -18.176
+margin_right = 216.0
+margin_bottom = -1.0
 custom_fonts/font = ExtResource( 12 )
 text = "Desire : 50/150"
 align = 1
@@ -240,11 +222,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AlignmentBar" type="ProgressBar" parent="Background/PlayerFrame"]
+[node name="AlignmentBar" type="ProgressBar" parent="PlayerFrame"]
 margin_left = 16.0
-margin_top = 272.0
-margin_right = 184.0
-margin_bottom = 288.0
+margin_top = 352.0
+margin_right = 232.0
+margin_bottom = 368.0
 custom_styles/fg = SubResource( 9 )
 custom_styles/bg = SubResource( 10 )
 step = 1.0
@@ -254,62 +236,54 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PlayerAlignment" type="Label" parent="Background/PlayerFrame/AlignmentBar"]
+[node name="PlayerAlignment" type="Label" parent="PlayerFrame/AlignmentBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_top = -24.0
-margin_right = 168.0
+margin_bottom = -16.0
 custom_fonts/font = ExtResource( 12 )
 text = "Alignment"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Money" type="Label" parent="Background/PlayerFrame"]
+[node name="Money" type="Label" parent="PlayerFrame"]
 margin_left = 16.0
-margin_top = 336.0
-margin_right = 184.0
-margin_bottom = 368.0
+margin_top = 432.0
+margin_right = 232.0
+margin_bottom = 464.0
 custom_fonts/font = ExtResource( 12 )
 text = "Money: 200,000yp"
 valign = 1
 autowrap = true
 
-[node name="VisualArea" type="ColorRect" parent="Background"]
-margin_left = 232.0
+[node name="VisualArea" type="Control" parent="."]
+margin_left = 280.0
 margin_top = 16.0
-margin_right = 784.0
-margin_bottom = 344.0
+margin_right = 992.0
+margin_bottom = 408.0
 rect_pivot_offset = Vector2( -624, 120 )
-color = Color( 0.247059, 0.247059, 0.247059, 1 )
 
-[node name="Visual" type="TextureRect" parent="Background/VisualArea"]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 544.0
-margin_bottom = 320.0
+[node name="Visual" type="TextureRect" parent="VisualArea"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource( 11 )
 expand = true
 
-[node name="Fight" type="Button" parent="Background/VisualArea/Visual"]
-margin_right = 80.0
-margin_bottom = 24.0
-text = "Start Fight"
-script = ExtResource( 7 )
-
-[node name="MapBox" type="ColorRect" parent="Background/VisualArea/Visual"]
-margin_left = 560.0
-margin_top = -8.0
-margin_right = 768.0
-margin_bottom = 160.0
+[node name="MapBox" type="ColorRect" parent="."]
+margin_left = 1008.0
+margin_top = 16.0
+margin_right = 1264.0
+margin_bottom = 216.0
 rect_pivot_offset = Vector2( -336, 32 )
 color = Color( 0.247059, 0.247059, 0.247059, 1 )
 
-[node name="TextureRect" type="TextureRect" parent="Background/VisualArea/Visual/MapBox"]
+[node name="TextureRect" type="TextureRect" parent="MapBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 200.0
-margin_bottom = 160.0
+margin_right = -8.0
+margin_bottom = -8.0
 rect_clip_content = true
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -319,252 +293,237 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TaskArea" type="ColorRect" parent="Background"]
-margin_left = 800.0
-margin_top = 200.0
-margin_right = 1008.0
-margin_bottom = 328.0
+[node name="TaskArea" type="ColorRect" parent="."]
+margin_left = 1008.0
+margin_top = 232.0
+margin_right = 1264.0
+margin_bottom = 392.0
 rect_pivot_offset = Vector2( -624, 120 )
 color = Color( 0.247059, 0.247059, 0.247059, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="TaskLog" type="Label" parent="Background/TaskArea"]
+[node name="TaskLog" type="Label" parent="TaskArea"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 200.0
+margin_right = 256.0
 margin_bottom = 25.0
 custom_fonts/font = ExtResource( 12 )
 text = "- QUEST LOG -"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="PanelContainer" type="PanelContainer" parent="Background/TaskArea/TaskLog"]
+[node name="PanelContainer" type="PanelContainer" parent="TaskArea/TaskLog"]
 margin_top = 16.0
-margin_right = 192.0
-margin_bottom = 112.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_right = 240.0
+margin_bottom = 144.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Background/TaskArea/TaskLog/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TaskArea/TaskLog/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 185.0
-margin_bottom = 89.0
+margin_right = 233.0
+margin_bottom = 121.0
 
-[node name="Inventory" type="ColorRect" parent="Background"]
-margin_left = 800.0
-margin_top = 344.0
-margin_right = 1008.0
-margin_bottom = 584.0
+[node name="Inventory" type="ColorRect" parent="."]
+margin_left = 1008.0
+margin_top = 408.0
+margin_right = 1264.0
+margin_bottom = 704.0
 rect_pivot_offset = Vector2( -952, -152 )
 color = Color( 0.247059, 0.247059, 0.247059, 1 )
 script = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="GridContainer" type="GridContainer" parent="Background/Inventory"]
-margin_left = 24.0
-margin_top = 24.0
-margin_right = 185.0
-margin_bottom = 227.0
-custom_constants/vseparation = 7
-custom_constants/hseparation = 7
+[node name="GridContainer" type="GridContainer" parent="Inventory"]
+margin_left = 15.0
+margin_top = 16.0
+margin_right = 238.0
+margin_bottom = 281.0
+custom_constants/vseparation = 10
+custom_constants/hseparation = 9
 columns = 4
 
-[node name="Slot 1" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_right = 35.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 1" type="Panel" parent="Inventory/GridContainer"]
+margin_right = 49.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 2" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 42.0
-margin_right = 77.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 2" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 58.0
+margin_right = 107.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 3" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 84.0
-margin_right = 119.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 3" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 116.0
+margin_right = 165.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 4" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 126.0
-margin_right = 161.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 4" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 174.0
+margin_right = 223.0
+margin_bottom = 45.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 5" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_top = 42.0
-margin_right = 35.0
-margin_bottom = 77.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 5" type="Panel" parent="Inventory/GridContainer"]
+margin_top = 55.0
+margin_right = 49.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 6" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 42.0
-margin_top = 42.0
-margin_right = 77.0
-margin_bottom = 77.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 6" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 58.0
+margin_top = 55.0
+margin_right = 107.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 7" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 84.0
-margin_top = 42.0
-margin_right = 119.0
-margin_bottom = 77.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 7" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 116.0
+margin_top = 55.0
+margin_right = 165.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 8" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 126.0
-margin_top = 42.0
-margin_right = 161.0
-margin_bottom = 77.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 8" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 174.0
+margin_top = 55.0
+margin_right = 223.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 9" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_top = 84.0
-margin_right = 35.0
-margin_bottom = 119.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 9" type="Panel" parent="Inventory/GridContainer"]
+margin_top = 110.0
+margin_right = 49.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 10" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 42.0
-margin_top = 84.0
-margin_right = 77.0
-margin_bottom = 119.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 10" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 58.0
+margin_top = 110.0
+margin_right = 107.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 11" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 84.0
-margin_top = 84.0
-margin_right = 119.0
-margin_bottom = 119.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 11" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 116.0
+margin_top = 110.0
+margin_right = 165.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 12" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 126.0
-margin_top = 84.0
-margin_right = 161.0
-margin_bottom = 119.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 12" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 174.0
+margin_top = 110.0
+margin_right = 223.0
+margin_bottom = 155.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 13" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_top = 126.0
-margin_right = 35.0
-margin_bottom = 161.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 13" type="Panel" parent="Inventory/GridContainer"]
+margin_top = 165.0
+margin_right = 49.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 14" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 42.0
-margin_top = 126.0
-margin_right = 77.0
-margin_bottom = 161.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 14" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 58.0
+margin_top = 165.0
+margin_right = 107.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 15" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 84.0
-margin_top = 126.0
-margin_right = 119.0
-margin_bottom = 161.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 15" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 116.0
+margin_top = 165.0
+margin_right = 165.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 16" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 126.0
-margin_top = 126.0
-margin_right = 161.0
-margin_bottom = 161.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 16" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 174.0
+margin_top = 165.0
+margin_right = 223.0
+margin_bottom = 210.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 17" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_top = 168.0
-margin_right = 35.0
-margin_bottom = 203.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 17" type="Panel" parent="Inventory/GridContainer"]
+margin_top = 220.0
+margin_right = 49.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 18" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 42.0
-margin_top = 168.0
-margin_right = 77.0
-margin_bottom = 203.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 18" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 58.0
+margin_top = 220.0
+margin_right = 107.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 19" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 84.0
-margin_top = 168.0
-margin_right = 119.0
-margin_bottom = 203.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 19" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 116.0
+margin_top = 220.0
+margin_right = 165.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="Slot 20" type="Panel" parent="Background/Inventory/GridContainer"]
-margin_left = 126.0
-margin_top = 168.0
-margin_right = 161.0
-margin_bottom = 203.0
-rect_min_size = Vector2( 35, 35 )
+[node name="Slot 20" type="Panel" parent="Inventory/GridContainer"]
+margin_left = 174.0
+margin_top = 220.0
+margin_right = 223.0
+margin_bottom = 265.0
+rect_min_size = Vector2( 49, 45 )
 custom_styles/panel = SubResource( 11 )
 script = ExtResource( 8 )
 
-[node name="TextArea" type="ColorRect" parent="Background"]
-margin_left = 232.0
-margin_top = 360.0
-margin_right = 784.0
-margin_bottom = 584.0
+[node name="TextArea" type="ColorRect" parent="."]
+margin_left = 280.0
+margin_top = 424.0
+margin_right = 992.0
+margin_bottom = 704.0
 rect_pivot_offset = Vector2( -624, 120 )
 color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Input" type="LineEdit" parent="Background/TextArea"]
+[node name="Input" type="LineEdit" parent="TextArea"]
 margin_left = 32.0
-margin_top = 184.0
-margin_right = 544.0
-margin_bottom = 216.0
+margin_top = 240.0
+margin_right = 704.0
+margin_bottom = 272.0
 rect_pivot_offset = Vector2( -336, 144 )
 custom_fonts/font = SubResource( 14 )
 custom_styles/focus = SubResource( 12 )
@@ -574,43 +533,37 @@ caret_blink = true
 caret_blink_speed = 0.5
 script = ExtResource( 2 )
 
-[node name="ColorRect" type="ColorRect" parent="Background/TextArea/Input"]
-margin_left = -24.0
+[node name="ColorRect" type="ColorRect" parent="TextArea/Input"]
+margin_left = -23.0
 margin_bottom = 32.0
 color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
 
-[node name="Caret" type="Label" parent="Background/TextArea"]
-margin_left = 8.0
-margin_top = 192.0
-margin_right = 48.0
-margin_bottom = 208.0
+[node name="Caret" type="Label" parent="TextArea"]
+margin_left = 9.0
+margin_top = 248.0
+margin_right = 53.0
+margin_bottom = 264.0
 custom_colors/font_color = Color( 0.839216, 0.839216, 0.839216, 1 )
 custom_fonts/font = SubResource( 15 )
 text = " >  "
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="GameInfo" type="PanelContainer" parent="Background/TextArea"]
+[node name="GameInfo" type="PanelContainer" parent="TextArea"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 544.0
-margin_bottom = 176.0
+margin_right = 704.0
+margin_bottom = 232.0
 custom_styles/panel = SubResource( 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Scroll" type="ScrollContainer" parent="Background/TextArea/GameInfo"]
-margin_right = 536.0
-margin_bottom = 168.0
+[node name="Scroll" type="ScrollContainer" parent="TextArea/GameInfo"]
+margin_right = 696.0
+margin_bottom = 224.0
 scroll_horizontal_enabled = false
 
-[node name="HistoryRows" type="VBoxContainer" parent="Background/TextArea/GameInfo/Scroll"]
-margin_right = 536.0
-margin_bottom = 168.0
+[node name="HistoryRows" type="VBoxContainer" parent="TextArea/GameInfo/Scroll"]
+margin_right = 696.0
+margin_bottom = 224.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 13
@@ -618,79 +571,100 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Menus" type="ColorRect" parent="Background"]
+[node name="Battle" type="Control" parent="."]
+margin_left = 280.0
+margin_top = 16.0
+margin_right = 992.0
+margin_bottom = 408.0
+rect_clip_content = true
+
+[node name="Enemies" type="HBoxContainer" parent="Battle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 40.0
+margin_right = 8.0
+margin_bottom = -80.0
+alignment = 1
+
+[node name="Menus" type="ColorRect" parent="."]
 margin_left = 16.0
-margin_top = 440.0
-margin_right = 216.0
-margin_bottom = 584.0
+margin_top = 536.0
+margin_right = 264.0
+margin_bottom = 704.0
 color = Color( 0.247059, 0.247059, 0.247059, 1 )
 script = ExtResource( 18 )
 
-[node name="Tabs" type="Control" parent="Background/Menus"]
+[node name="Tabs" type="Control" parent="Menus"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="PlayerTab" type="ColorRect" parent="Background/Menus/Tabs"]
+[node name="PlayerTab" type="ColorRect" parent="Menus/Tabs"]
 visible = false
-margin_left = 224.0
-margin_top = -416.0
-margin_right = 760.0
-margin_bottom = -104.0
+margin_left = 264.0
+margin_top = -520.0
+margin_right = 976.0
+margin_bottom = -128.0
 color = Color( 0.364706, 0.364706, 0.364706, 1 )
 
-[node name="Label" type="Label" parent="Background/Menus/Tabs/PlayerTab"]
+[node name="Label" type="Label" parent="Menus/Tabs/PlayerTab"]
 margin_right = 40.0
 margin_bottom = 14.0
 text = "PLAYER"
 
-[node name="SkillTab" type="ColorRect" parent="Background/Menus/Tabs"]
-visible = false
-margin_left = 224.0
-margin_top = -416.0
-margin_right = 760.0
-margin_bottom = -104.0
+[node name="EquipmentTab" type="ColorRect" parent="Menus/Tabs/PlayerTab"]
+margin_left = 728.0
+margin_right = 984.0
+margin_bottom = 384.0
 color = Color( 0.364706, 0.364706, 0.364706, 1 )
 
-[node name="Label" type="Label" parent="Background/Menus/Tabs/SkillTab"]
+[node name="SkillTab" type="ColorRect" parent="Menus/Tabs"]
+visible = false
+margin_left = 264.0
+margin_top = -520.0
+margin_right = 976.0
+margin_bottom = -128.0
+color = Color( 0.364706, 0.364706, 0.364706, 1 )
+
+[node name="Label" type="Label" parent="Menus/Tabs/SkillTab"]
 margin_right = 40.0
 margin_bottom = 14.0
 text = "SKILLS"
 
-[node name="OptionsTab" type="ColorRect" parent="Background/Menus/Tabs"]
+[node name="OptionsTab" type="ColorRect" parent="Menus/Tabs"]
 visible = false
-margin_left = 216.0
-margin_top = -424.0
-margin_right = 992.0
-margin_bottom = 144.0
+margin_left = 264.0
+margin_top = -520.0
+margin_right = 1248.0
+margin_bottom = 168.0
 color = Color( 0.364706, 0.364706, 0.364706, 1 )
 
-[node name="Label" type="Label" parent="Background/Menus/Tabs/OptionsTab"]
+[node name="Label" type="Label" parent="Menus/Tabs/OptionsTab"]
 margin_right = 40.0
 margin_bottom = 14.0
 text = "OPTIONS"
 
-[node name="MenuTab" type="ColorRect" parent="Background/Menus/Tabs"]
+[node name="MenuTab" type="ColorRect" parent="Menus/Tabs"]
 visible = false
-margin_left = 216.0
-margin_top = -424.0
-margin_right = 992.0
-margin_bottom = 144.0
+margin_left = 264.0
+margin_top = -520.0
+margin_right = 1248.0
+margin_bottom = 168.0
 color = Color( 0.364706, 0.364706, 0.364706, 1 )
 
-[node name="Label" type="Label" parent="Background/Menus/Tabs/MenuTab"]
+[node name="Label" type="Label" parent="Menus/Tabs/MenuTab"]
 margin_right = 40.0
 margin_bottom = 14.0
 text = "MENU"
 
-[node name="Buttons" type="Control" parent="Background/Menus"]
+[node name="Buttons" type="Control" parent="Menus"]
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="PlayerButton" type="Button" parent="Background/Menus/Buttons"]
-margin_left = 16.0
-margin_top = 24.0
-margin_right = 96.0
-margin_bottom = 64.0
+[node name="PlayerButton" type="Button" parent="Menus/Buttons"]
+margin_left = 24.0
+margin_top = 30.0
+margin_right = 112.0
+margin_bottom = 78.0
 rect_pivot_offset = Vector2( -312, -32 )
 focus_mode = 0
 custom_fonts/font = ExtResource( 12 )
@@ -701,11 +675,11 @@ enabled_focus_mode = 0
 keep_pressed_outside = true
 text = "PLAYER"
 
-[node name="SkillsButton" type="Button" parent="Background/Menus/Buttons"]
-margin_left = 104.0
-margin_top = 24.0
-margin_right = 184.0
-margin_bottom = 64.0
+[node name="SkillsButton" type="Button" parent="Menus/Buttons"]
+margin_left = 136.0
+margin_top = 30.0
+margin_right = 224.0
+margin_bottom = 78.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 12 )
 custom_styles/hover = ExtResource( 14 )
@@ -714,11 +688,11 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "SKILLS"
 
-[node name="OptionsButton" type="Button" parent="Background/Menus/Buttons"]
-margin_left = 16.0
-margin_top = 80.0
-margin_right = 96.0
-margin_bottom = 120.0
+[node name="OptionsButton" type="Button" parent="Menus/Buttons"]
+margin_left = 24.0
+margin_top = 96.0
+margin_right = 112.0
+margin_bottom = 144.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 12 )
 custom_styles/hover = ExtResource( 14 )
@@ -727,11 +701,11 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "OPTIONS"
 
-[node name="MenuButton" type="Button" parent="Background/Menus/Buttons"]
-margin_left = 104.0
-margin_top = 80.0
-margin_right = 184.0
-margin_bottom = 120.0
+[node name="MenuButton" type="Button" parent="Menus/Buttons"]
+margin_left = 136.0
+margin_top = 96.0
+margin_right = 224.0
+margin_bottom = 144.0
 focus_mode = 0
 custom_fonts/font = ExtResource( 12 )
 custom_styles/hover = ExtResource( 14 )
@@ -740,6 +714,13 @@ custom_styles/normal = ExtResource( 15 )
 enabled_focus_mode = 0
 text = "MENU"
 
-[connection signal="pressed" from="Background/VisualArea/Visual/Fight" to="Background/VisualArea/Visual/Fight" method="_on_Fight_pressed"]
-[connection signal="text_entered" from="Background/TextArea/Input" to="." method="_on_Input_text_entered"]
-[connection signal="text_entered" from="Background/TextArea/Input" to="Background/TextArea/Input" method="_on_Input_text_entered"]
+[node name="StartFight" type="Button" parent="."]
+margin_left = 280.0
+margin_top = 384.0
+margin_right = 384.0
+margin_bottom = 408.0
+text = "Start Fight"
+
+[connection signal="text_entered" from="TextArea/Input" to="." method="_on_Input_text_entered"]
+[connection signal="text_entered" from="TextArea/Input" to="TextArea/Input" method="_on_Input_text_entered"]
+[connection signal="button_up" from="StartFight" to="." method="Battle"]
