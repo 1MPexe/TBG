@@ -1,10 +1,14 @@
 extends Node
 
-enum {IDLE,BATTLE,WIN,LOSS,PLAYER,SKILLS,MENU,OPTIONS}
-var current_state = IDLE
+enum{PLAYER,SKILLS,MENU,OPTIONS,CLOSED}
 
+enum {IDLE,BATTLE,WIN,LOSS}
 
-func set_state(state):
-	current_state = state
+var game_state = IDLE
+var menu_state = CLOSED
 
+func set_game_state(state):
+	game_state = state
 
+func set_menu_state(state):
+	menu_state = state

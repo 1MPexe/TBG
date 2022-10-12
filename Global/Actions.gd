@@ -11,13 +11,13 @@ func process_command(input: String) -> String:
 		
 	var first_word = words[0].to_lower()
 	
-	var second_word
+	var _second_word
 	if words.size() > 1:
-		second_word = words[1].to_lower()
+		_second_word = words[1].to_lower()
 	
-	var third_word 
+	var _third_word 
 	if words.size() > 2:
-		third_word = words[2].to_lower()
+		_third_word = words[2].to_lower()
 
 
 #  List of all available commands.
@@ -65,7 +65,7 @@ enum {COMMAND,ENEMY,INDEX}
 func attack(words : Array) -> String:
 	
 	# Ignore this function if a battle is not happening
-	if State.current_state != State.BATTLE: return "You're not in a battle"
+	if State.game_state != State.BATTLE: return "You're not in a battle"
 	# If no enemy is specified
 	if words.size() == 1: return "Attack what?"
 	
@@ -83,10 +83,26 @@ func attack(words : Array) -> String:
 
 	# Check if the INDEX is a valid number.
 	if index <= -1: return "Enemy not specified (Type a number)"
-
+	
 	# If the enemy the player wants to attack is not in the array of enemies
 	if index > Core.active_enemies.size(): return "There is no %s %s" % [words[ENEMY], words[INDEX]]
+	
+	# Player damages enemy health
+	Core.active_enemies[words[ENEMY]][index].damage(Ply.power)
+	# Enemy damages player health
+	
+	for enemy in Core.active_enemies.size():
+		if Core.active_enemies.size() <= -1:
+			Win()
 
-	Core.active_enemies[words[ENEMY]][index].attack(10)
+	return ""
+	pass
+	
+func Win():
+	if State.game_state == State.IDLE: return
+	else:
+		State.set_game_state(State.WIN)
+		Terminal.add_response("You Won!")
+		
+		print(State.game_state)
 
-	return "You attack the %s!" % words[ENEMY]

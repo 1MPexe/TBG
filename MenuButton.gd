@@ -14,5 +14,10 @@ func _ready():
 func _on_button_pressed(idx: int):
 	for i in menus.size():
 		menus[i].visible = false
-	menus[idx].visible = true
+	if State.menu_state == idx : 
+		State.menu_state = State.CLOSED
+	else : 
+		State.menu_state = idx
+		menus[State.menu_state].visible = true
 	
+
