@@ -63,16 +63,18 @@ enum {COMMAND,ENEMY,INDEX}
 
 # Attack a specified enemy
 func attack(words : Array) -> String:
-
+	
 	# Ignore this function if a battle is not happening
 	if State.current_state != State.BATTLE: return "You're not in a battle"
-
+	# If no enemy is specified
+	if words.size() == 1: return "Attack what?"
+	
 	# check if the enemy type exists
 	if !Core.active_enemies.has(words[ENEMY]): return "%s isn't an enemy" % [words[ENEMY]]
 	if Core.active_enemies[words[ENEMY]].empty(): return "There is no %s in this battle" % [words[ENEMY]]
 
 	# Check if command prarmeters exist
-	if words.size() == 1: return "Attack what?"
+	
 	if words.size() == 2: return "Which %s" % words[ENEMY]
 	if words.size() > 3: return "Too many Parameters"
 

@@ -78,7 +78,14 @@ func start_battle():
 	for enemy in Core.active_enemies["goblinknight"] : 
 		Terminal.add_response("A %s appeared!" % enemy.enemy_name)
 
-
+# Clears enemies on screen and enemies in the dictionary
+func end_battle():
+	State.set_state(State.IDLE)
+	for enemy in $Battle/Enemies.get_children():
+		enemy.queue_free()
+	for array in Core.active_enemies.values() :
+		array.clear()
+	print(Core.active_enemies)
 
 func on_next_turn():
 	print("it's a new turn!")

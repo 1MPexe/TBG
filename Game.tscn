@@ -733,3 +733,4 @@ text = "End Fight"
 [connection signal="text_entered" from="TextArea/Input" to="." method="_on_Input_text_entered"]
 [connection signal="text_entered" from="TextArea/Input" to="TextArea/Input" method="_on_Input_text_entered"]
 [connection signal="button_up" from="StartFight" to="." method="start_battle"]
+[connection signal="button_up" from="EndFight" to="." method="end_battle"]
