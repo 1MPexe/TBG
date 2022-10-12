@@ -21,6 +21,7 @@ Actions="*res://Global/Actions.gd"
 State="*res://Global/State.gd"
 Ply="*res://Global/Player.gd"
 Core="*res://Global/core.gd"
+Terminal="*res://Global/Terminal.gd"
 
 [display]
 

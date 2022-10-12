@@ -719,8 +719,17 @@ margin_left = 280.0
 margin_top = 384.0
 margin_right = 384.0
 margin_bottom = 408.0
+rect_pivot_offset = Vector2( 125, 24 )
 text = "Start Fight"
+
+[node name="EndFight" type="Button" parent="."]
+margin_left = 385.0
+margin_top = 384.0
+margin_right = 489.0
+margin_bottom = 408.0
+rect_pivot_offset = Vector2( 125, 24 )
+text = "End Fight"
 
 [connection signal="text_entered" from="TextArea/Input" to="." method="_on_Input_text_entered"]
 [connection signal="text_entered" from="TextArea/Input" to="TextArea/Input" method="_on_Input_text_entered"]
-[connection signal="button_up" from="StartFight" to="." method="Battle"]
+[connection signal="button_up" from="StartFight" to="." method="start_battle"]

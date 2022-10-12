@@ -2,6 +2,7 @@ extends Node
 
 signal next_turn()
 
+
 # Prevents the command line from processing empty commands.
 func process_command(input: String) -> String:
 	var words = input.split(" ", false)
@@ -63,9 +64,16 @@ enum {COMMAND,ENEMY,INDEX}
 # Attack a specified enemy
 func attack(words : Array) -> String:
 
+	# Ignore this function if a battle is not happening
+	if State.current_state != State.BATTLE: return "You're not in a battle"
+
+	# check if the enemy type exists
+	if !Core.active_enemies.has(words[ENEMY]): return "%s isn't an enemy" % [words[ENEMY]]
+	if Core.active_enemies[words[ENEMY]].empty(): return "There is no %s in this battle" % [words[ENEMY]]
+
 	# Check if command prarmeters exist
 	if words.size() == 1: return "Attack what?"
-	if words.size() == 2: return "Enemy not specified"
+	if words.size() == 2: return "Which %s" % words[ENEMY]
 	if words.size() > 3: return "Too many Parameters"
 
 	# This is the number the player typed in -1
@@ -77,6 +85,6 @@ func attack(words : Array) -> String:
 	# If the enemy the player wants to attack is not in the array of enemies
 	if index > Core.active_enemies.size(): return "There is no %s %s" % [words[ENEMY], words[INDEX]]
 
-	Core.active_enemies[index].attack(10)
+	Core.active_enemies[words[ENEMY]][index].attack(10)
 
 	return "You attack the %s!" % words[ENEMY]
