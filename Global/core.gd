@@ -1,4 +1,6 @@
 extends Node
 
 var enemy_count : int
-var active_enemies : Array
+var active_enemies = {
+	"goblinknight" : [] 
+}

@@ -74,7 +74,7 @@ func delete_history_beyond_limit():
 #Battle script
 func Battle():
 	var max_enemies = 3
-	var goblinknight = goblin_knight_prefab.instance()
+	var new_goblinknight = goblin_knight_prefab.instance()
 	var battle_message = Response.instance()
 	
 	State.set_state(1)
@@ -85,12 +85,11 @@ func Battle():
 	if Core.enemy_count == max_enemies:
 		return
 	elif Core.enemy_count < max_enemies:
-		$Battle/Enemies.add_child(goblinknight)
+		$Battle/Enemies.add_child(new_goblinknight)
+		Core.active_enemies["goblinknight"].append(new_goblinknight)
 		
-		Core.active_enemies = $Battle/Enemies.get_children()
-		
-		
-		for enemy in Core.active_enemies : 
+		print(Core.active_enemies)
+		for enemy in Core.active_enemies["goblinknight"] : 
 			battle_message.text = "A %s appeared!" % enemy.enemy_name
 			add_response_to_game(battle_message)
 
