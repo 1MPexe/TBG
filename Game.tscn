@@ -100,10 +100,10 @@ region_rect = Rect2( 0, 0, 18, 18 )
 size = 12
 font_data = ExtResource( 4 )
 
-[sub_resource type="StyleBoxEmpty" id=12]
+[sub_resource type="StyleBoxFlat" id=19]
+bg_color = Color( 0.00784314, 0.00784314, 0.00784314, 1 )
 
-[sub_resource type="StyleBoxFlat" id=13]
-bg_color = Color( 0.00878906, 0.00875473, 0.00875473, 1 )
+[sub_resource type="StyleBoxEmpty" id=18]
 
 [sub_resource type="DynamicFont" id=15]
 size = 11
@@ -194,6 +194,7 @@ __meta__ = {
 }
 
 [node name="DesireBar" type="ProgressBar" parent="PlayerFrame"]
+visible = false
 margin_left = 16.0
 margin_top = 288.0
 margin_right = 232.0
@@ -527,8 +528,9 @@ margin_right = 704.0
 margin_bottom = 272.0
 rect_pivot_offset = Vector2( -336, 144 )
 custom_fonts/font = SubResource( 14 )
-custom_styles/focus = SubResource( 12 )
-custom_styles/normal = SubResource( 13 )
+custom_styles/read_only = SubResource( 19 )
+custom_styles/focus = SubResource( 18 )
+custom_styles/normal = SubResource( 19 )
 max_length = 38
 caret_blink = true
 caret_blink_speed = 0.5

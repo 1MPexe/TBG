@@ -46,14 +46,14 @@ func handle_scrollbar_changed():
 		scroll.scroll_vertical = max_scroll_length
 
 
-func _on_Input_text_entered(new_text: String) -> void:
+func _on_Input_text_entered(new_text: String):
 	if new_text.empty():
 		return
 
 	var input_response = InputResponse.instance()
 	var response = Actions.process_command(new_text)
-	input_response.set_text(new_text, response)
 	Terminal.history_rows.add_child(input_response)
+	input_response.set_text(new_text, response)
 
 
 
@@ -76,7 +76,8 @@ func start_battle():
 	#Puts each goblin into the active_enemies dictionary
 	for enemy in Core.active_enemies["gobokin"] : 
 		Terminal.add_response("A %s appeared!" % enemy.enemy_name)
-
+	
+	print(Core.check_enemy_count())
 
 
 # Clears enemies on screen and enemies in the dictionary
