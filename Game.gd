@@ -28,7 +28,7 @@ func _ready() -> void:
 	max_scroll_length = scrollbar.max_value
 	
 	Terminal.add_response("You find yourself in a strange new world. You can type 'help' to view the available commands.")
-	Actions.connect("next_turn", self, "on_next_turn")
+	
 
 
 

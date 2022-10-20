@@ -22,6 +22,7 @@ State="*res://Global/State.gd"
 Ply="*res://Global/Player.gd"
 Core="*res://Global/core.gd"
 Terminal="*res://Global/Terminal.gd"
+Utility="*res://Global/Utility.gd"
 
 [display]
 

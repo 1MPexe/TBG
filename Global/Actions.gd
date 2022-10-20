@@ -87,22 +87,36 @@ func attack(words : Array):
 	if index > Core.active_enemies.size(): return Terminal.add_input_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
 	
 	
+	#if index 
 	
-		
+	
 	
 	# Player damages enemy health
-	Core.active_enemies[words[ENEMY]][index].damage(Ply.power)
+	var my_number : int
+	var player_attack = Ply.power
+	
+	#rolls a random number between the players max power
+	my_number = Utility.random_number(player_attack)
+	
+	if my_number == 0:
+		Terminal.add_response("You attack the %s but stumble and miss!" % [words[ENEMY]])
+	else:
+		Core.active_enemies[words[ENEMY]][index].damage(my_number)
+		Terminal.add_response("The %s was struck for %s damage!" % [words[ENEMY], my_number])
+	
+	
+	
+	
 	# Enemy damages player health
 	
 	
-	
-	if Core.active_enemies[words[ENEMY]][index].get("health") == 0:
+	#removes enemy from the scene when defeated
+	if Core.active_enemies[words[ENEMY]][index].get("health") <= 0:
 		Terminal.add_response("The enemy %s was slain!" % [words[ENEMY]])
 		Core.active_enemies[words[ENEMY]][index].die()
 		Core.active_enemies[words[ENEMY]].remove(index)
-	else:
-		Terminal.add_response("The %s was struck for %s damage!" % [words[ENEMY],Ply.power])
 	
+	#If there are no more enemies run the win function
 	if Core.check_enemy_count() == 0:
 		Win()
 		
