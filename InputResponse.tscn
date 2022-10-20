@@ -8,9 +8,6 @@
 margin_right = 592.0
 margin_bottom = 26.0
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="InputHistory" parent="." instance=ExtResource( 1 )]
 margin_bottom = 9.0

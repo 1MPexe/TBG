@@ -50,10 +50,9 @@ func _on_Input_text_entered(new_text: String):
 	if new_text.empty():
 		return
 
-	var input_response = InputResponse.instance()
-	var response = Actions.process_command(new_text)
-	Terminal.history_rows.add_child(input_response)
-	input_response.set_text(new_text, response)
+	Actions.process_command(new_text)
+
+
 
 
 

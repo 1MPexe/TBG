@@ -6,6 +6,10 @@ signal next_turn()
 
 # Prevents the command line from processing empty commands.
 func process_command(input: String):
+
+	# lets the terminal know what the user has just input
+	Terminal.last_user_input = input 
+
 	var words = input.split(" ", false)
 	if words.size() == 0:
 		return "Error: no words were parsed."
@@ -34,22 +38,22 @@ func process_command(input: String):
 
 func im(person: String):
 	if person == "1mp":
-		return Terminal.add_response("Hello creator!")
+		return Terminal.add_input_response("Hello creator!")
 	elif person == "": 
-		return Terminal.add_response("You're who?")
+		return Terminal.add_input_response("You're who?")
 
-	return Terminal.add_response("Hello, %s!" % person)
+	return Terminal.add_input_response("Hello, %s!" % person)
 
 
 func go(place: String):
 	if place == "":
-		return Terminal.add_response("Go where?")
+		return Terminal.add_input_response("Go where?")
 
-	return Terminal.add_response("You go %s." % place)
+	return Terminal.add_input_response("You go %s." % place)
 
 
 func help():
-	return Terminal.add_response("You can use these commands: 'go [location]' , 'help' , 'attack [thing]'")
+	return Terminal.add_input_response("You can use these commands: 'go [location]' , 'help' , 'attack [thing]'")
 
 
 enum {COMMAND,ENEMY,INDEX}
@@ -58,18 +62,18 @@ enum {COMMAND,ENEMY,INDEX}
 func attack(words : Array):
 	
 	# Ignore this function if a battle is not happening
-	if State.game_state != State.BATTLE: return Terminal.add_response("You're not in a battle")
+	if State.game_state != State.BATTLE: return Terminal.add_input_response("You're not in a battle")
 	# If no enemy is specified
-	if words.size() == 1: return Terminal.add_response("Attack what?")
+	if words.size() == 1: return Terminal.add_input_response("Attack what?")
 	
 	# check if the enemy type exists
-	if !Core.active_enemies.has(words[ENEMY]): return Terminal.add_response("%s isn't an enemy" % [words[ENEMY]])
-	if Core.active_enemies[words[ENEMY]].empty(): return Terminal.add_response("There is no %s in this battle" % [words[ENEMY]])
+	if !Core.active_enemies.has(words[ENEMY]): return Terminal.add_input_response("%s isn't an enemy" % [words[ENEMY]])
+	if Core.active_enemies[words[ENEMY]].empty(): return Terminal.add_input_response("There is no %s in this battle" % [words[ENEMY]])
 
 	# Check if command prarmeters exist
 	
-	if words.size() == 2: return Terminal.add_response("Which %s" % words[ENEMY])
-	if words.size() > 3: return Terminal.add_response("Too many Parameters")
+	if words.size() == 2: return Terminal.add_input_response("Which %s" % words[ENEMY])
+	if words.size() > 3: return Terminal.add_input_response("Too many Parameters")
 
 	# This is the number the player typed in -1
 	var index = int(words[INDEX]) - 1
@@ -77,10 +81,10 @@ func attack(words : Array):
 	#var wr = weakref()   
 	
 	# Check if the INDEX is a valid number.
-	if index < -1: return Terminal.add_response("Enemy not specified (Type a number)")
+	if index < -1: return Terminal.add_input_response("Enemy not specified (Type a number)")
 	
 	# If the enemy the player wants to attack is not in the array of enemies
-	if index > Core.active_enemies.size(): return Terminal.add_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
+	if index > Core.active_enemies.size(): return Terminal.add_input_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
 	
 	
 	
