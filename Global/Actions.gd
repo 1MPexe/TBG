@@ -84,12 +84,7 @@ func attack(words : Array):
 	if index < -1: return Terminal.add_input_response("Enemy not specified (Type a number)")
 	
 	# If the enemy the player wants to attack is not in the array of enemies
-	if index > Core.active_enemies.size(): return Terminal.add_input_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
-	
-	
-	#if index 
-	
-	
+	if index >= Core.active_enemies[words[ENEMY]].size(): return Terminal.add_input_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
 	
 	# Player damages enemy health
 	var my_number : int
