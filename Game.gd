@@ -1,22 +1,10 @@
 extends Control
 
-#Spawns text within command line text area
-const InputResponse = preload("res://InputResponse.tscn")
-
-#Enemy preloads
-const goblin_knight_prefab = preload("res://assets/Enemies/GoblinKnight.tscn")
-
-
 #Max lines remembered in history row
-
 var max_scroll_length := 0
-
-
 
 onready var scroll = $TextArea/GameInfo/Scroll
 onready var scrollbar = scroll.get_v_scrollbar()
-
-
 
 
 #sets up command line
@@ -67,7 +55,7 @@ func start_battle():
 	
 	# Spawns 3 goblins
 	for i in 3:
-		var new_gobokin = goblin_knight_prefab.instance()
+		var new_gobokin = Enemies.gobokin.instance()
 		$Battle/Enemies.add_child(new_gobokin)
 		Core.active_enemies["gobokin"].append(new_gobokin)
 	
@@ -75,7 +63,7 @@ func start_battle():
 	for enemy in Core.active_enemies["gobokin"] : 
 		Terminal.add_response("A %s appeared!" % enemy.enemy_name)
 	
-	print(Core.check_enemy_count())
+	print(Core.get_all_enemies().size())
 
 
 # Clears enemies on screen and enemies in the dictionary

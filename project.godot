@@ -23,11 +23,13 @@ Ply="*res://Global/Player.gd"
 Core="*res://Global/core.gd"
 Terminal="*res://Global/Terminal.gd"
 Utility="*res://Global/Utility.gd"
+Enemies="*res://Global/Enemies.gd"
 
 [display]
 
 window/size/width=1280
 window/size/height=720
+window/size/resizable=false
 window/stretch/mode="viewport"
 
 [input]
