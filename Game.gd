@@ -21,7 +21,6 @@ onready var scrollbar = scroll.get_v_scrollbar()
 
 #sets up command line
 func _ready() -> void:
-	update_player_health()
 	Terminal.history_rows = $TextArea/GameInfo/Scroll/HistoryRows
 
 	scrollbar.connect("changed", self, "handle_scrollbar_changed")
@@ -29,13 +28,13 @@ func _ready() -> void:
 	
 	Terminal.add_response("You find yourself in a strange new world. You can type 'help' to view the available commands.")
 	
+	if Actions.connect('new_turn', self, '_on_new_turn') == OK:
+		pass
+	if Actions.connect('loss_battle', self, 'Game_Over') == OK:
+		pass
 
 
 
-func update_player_health():
-	$PlayerFrame/HealthBar.value = Ply.health
-	get_node("PlayerFrame/HealthBar/PlayerHealth").text = "Health : %d/%d" % [Ply.health, Ply.max_health]
-	
 
 
 
@@ -90,13 +89,12 @@ func end_battle():
 
 
 #update player stats every turn
-func on_next_turn():
-	update_player_health()
+func _on_new_turn():
 	print("it's a new turn!")
 
 func Game_Over():
-	if Ply.health == 0:
+	if Ply.health <= 0:
 		State.set_game_state(State.LOSS)
 		Terminal.add_response("YOU LOST!")
-		pass
+		return
 

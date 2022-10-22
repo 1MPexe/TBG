@@ -1,7 +1,8 @@
 extends Node
 
-signal next_turn()
 
+signal new_turn()
+signal loss_battle()
 
 
 # Prevents the command line from processing empty commands.
@@ -20,17 +21,17 @@ func process_command(input: String):
 #  List of all available commands.
 	match first_word:
 		"go": 
-			emit_signal("next_turn") 
-			return go(words[1])
+			go(words[1])
+			
 		"help":
-			emit_signal("next_turn") 
-			return help()
+			help()
+			
 		"attack":
-			emit_signal("next_turn") 
-			return attack(words)
+			attack(words)
+			emit_signal("new_turn") 
 		"i'm":
-			emit_signal("next_turn") 
-			return im(words[1])
+			im(words[1])
+			
 		_:
 			return "Unrecognized command."
 			
@@ -78,31 +79,36 @@ func attack(words : Array):
 	# This is the number the player typed in -1
 	var index = int(words[INDEX]) - 1
 	
-	#var wr = weakref()   
+	 
 	
 	# Check if the INDEX is a valid number.
 	if index < -1: return Terminal.add_input_response("Enemy not specified (Type a number)")
 	
 	# If the enemy the player wants to attack is not in the array of enemies
-	if index >= Core.active_enemies[words[ENEMY]].size(): return Terminal.add_input_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
+	if index >= Core.active_enemies[words[ENEMY]].size(): 
+		return Terminal.add_input_response("There is no %s %s" % [words[ENEMY], words[INDEX]])
 	
-	# Player damages enemy health
+	
+	
+	
 	var my_number : int
 	var player_attack = Ply.power
 	
 	#rolls a random number between the players max power
 	my_number = Utility.random_number(player_attack)
 	
+	# Player miss
 	if my_number == 0:
 		Terminal.add_response("You attack the %s but stumble and miss!" % [words[ENEMY]])
+	
+	# Player damages enemy health
 	else:
 		Core.active_enemies[words[ENEMY]][index].damage(my_number)
-		Terminal.add_response("The %s was struck for %s damage!" % [words[ENEMY], my_number])
+		Terminal.add_response("The %s was struck for %s damage!" % [words[ENEMY].capitalize(), my_number])
 	
 	
-	
-	
-	# Enemy damages player health
+	# if the enemy fled, remove enemy from dictionary
+	#Core.active_enemies[words[ENEMY]].remove(index)
 	
 	
 	#removes enemy from the scene when defeated
@@ -111,15 +117,15 @@ func attack(words : Array):
 		Core.active_enemies[words[ENEMY]][index].die()
 		Core.active_enemies[words[ENEMY]].remove(index)
 	
-	#If there are no more enemies run the win function
-	if Core.check_enemy_count() == 0:
-		Win()
-		
+	
 	return ""
 
 
 
-	
+func check_enemies():
+	#If there are no more enemies run the win function
+	if Core.check_enemy_count() == 0:
+		Win()
 	
 	
 func Win():
@@ -129,4 +135,5 @@ func Win():
 		Terminal.add_response("You Won!")
 		
 		print(State.game_state)
+
 

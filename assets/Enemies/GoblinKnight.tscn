@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/Fonts/m5x7.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/Enemies/goblinknight.png" type="Texture" id=3]
 [ext_resource path="res://large.tres" type="DynamicFont" id=4]
-[ext_resource path="res://assets/Enemies/GoblinKnight.gd" type="Script" id=5]
+[ext_resource path="res://assets/Enemies/Gobokin.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=3]
 size = 35
