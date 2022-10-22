@@ -3,36 +3,27 @@ extends Control
 var enemy_name = "Gobokin"
 var max_health = 25
 var health = 25
-var hit = 5
-
- 
-
-
-
-
+var max_attack_power = 10
+var attack_margin = 5
+var miss_chance = 10
 
 func _ready():
 	$EnemyHealthBar.max_value = max_health
 	$EnemyHealthBar.value = health
 	$EnemyHealthBar/EnemyHealth.text = "HP:%s/%s" % [health, max_health]
+	rect_scale = Vector2(448,280)
 
-# Reading the "next_turn" signal
-	if Actions.connect('new_turn', self, 'on_next_turn') == OK:
-		pass
-
-
-
-
-# Function to run
-func on_next_turn():
+func run_anim():
 	var chance : int
 	print("bop")
 	check_health()
 	chance = Utility.random_number(100)
 	if chance > 10:
-		attack()
+		$AnimationPlayer.play("attack")
 	else:
 		flee()
+
+	
 
 
 
@@ -44,14 +35,18 @@ func check_health():
 
 
 func attack():
-	
-	var my_number = Utility.random_number(hit)
-	Ply.health -= my_number
-	print(Ply.health)
-	if my_number == 0:
-		Terminal.add_response("The Gobokin tripped and fell...")
+	# Percent chace to miss out of 100
+	if Utility.random_number(100) < miss_chance:
+		return Terminal.add_response("The Gobokin tripped and fell...")
+
+	# set attack power with a margin of error
+	var attack_power = max_attack_power - Utility.random_number(attack_margin)
+	Ply.health -= attack_power
+
+	if attack_power <= 0:
+		Terminal.add_response("The Gobokin hit you, but you're unphased")
 	else: 
-		Terminal.add_response("The Gobokin swings it's sword for %s damage!" % my_number)
+		Terminal.add_response("The Gobokin swings it's sword for %s damage!" % attack_power)
 
 func damage(dmg:int):
 	health -= dmg
