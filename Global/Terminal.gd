@@ -7,6 +7,7 @@ const input_response_prefab = preload("res://InputResponse.tscn")
 var history_rows: VBoxContainer
 var max_lines_remembered := 25
 var last_user_input: String  #The last thing the user has input
+var line_edit: LineEdit
 
 #Creates a new response within history row
 func add_response(text: String):
@@ -30,3 +31,9 @@ func add_input_response(response: String):
 
 	history_rows.add_child(new_input_response)
 	delete_history_beyond_limit()
+
+func disable():
+	line_edit.editable = false
+
+func enable():
+	line_edit.editable = true

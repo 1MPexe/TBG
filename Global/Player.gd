@@ -1,12 +1,6 @@
 extends Node
 
-
 signal action_done()
-
-
-
-#Ply for calling player.gd
-
 
 var health = 50
 var max_health = 50
@@ -18,6 +12,10 @@ var power = 10
 
 
 
+
 func damage(amount):
 	health -= amount
 
+func temp():
+	emit_signal('action_done')
+	

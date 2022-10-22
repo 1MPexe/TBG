@@ -4,7 +4,6 @@ extends Node
 signal new_turn()
 signal loss_battle()
 
-
 # Prevents the command line from processing empty commands.
 func process_command(input: String):
 
@@ -25,10 +24,9 @@ func process_command(input: String):
 			
 		"help":
 			help()
-			
 		"attack":
 			attack(words)
-			emit_signal("new_turn") 
+			Ply.emit_signal("action_done") 
 		"i'm":
 			im(words[1])
 			
@@ -124,7 +122,7 @@ func attack(words : Array):
 
 func check_enemies():
 	#If there are no more enemies run the win function
-	if Core.check_enemy_count() == 0:
+	if Core.get_all_enemies().size() <= 0:
 		Win()
 	
 	
@@ -137,3 +135,8 @@ func Win():
 		print(State.game_state)
 
 
+
+# This does nothing. Just get's rid of the yellow error.
+func temp():
+	emit_signal('new_turn')
+	emit_signal('loss_battle')
