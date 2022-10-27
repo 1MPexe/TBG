@@ -2,6 +2,7 @@ extends Node
 
 signal update_hud()
 
+
 onready var enemy_timer = Timer.new()
 
 var enemy_index # The enemy that's supposed to do something
@@ -35,17 +36,41 @@ func _on_action_done() -> void:
 
 
 func _on_timer_timeout():
+	if Ply.health <=0:
+		Lose()
+		emit_signal("update_hud")
+		enemy_timer.stop()
+		return
+	
 	# Stop timer if all enemies are done doing stuff
 	if enemy_index >= get_all_enemies().size():
 		enemy_timer.stop()
 		Actions.emit_signal("new_turn")
 		Terminal.enable()
 		emit_signal("update_hud")
-		return 
+		return
+		
+
 
 	# Make the next enemy do a thing
 	get_all_enemies()[enemy_index].run_anim()
 	enemy_index += 1
 
+	
 	emit_signal("update_hud")
+	
+
+
+func Win():
+	if State.game_state == State.IDLE: return
+	else:
+		State.set_game_state(State.WIN)
+		Terminal.add_response("You Won!")
 		
+		print(State.game_state)
+
+
+func Lose():
+	State.set_game_state(State.LOSS)
+	Terminal.add_response("YOU LOST!")
+	return

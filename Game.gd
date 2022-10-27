@@ -80,9 +80,5 @@ func end_battle():
 func _on_new_turn():
 	print("it's a new turn!")
 
-func Game_Over():
-	if Ply.health <= 0:
-		State.set_game_state(State.LOSS)
-		Terminal.add_response("YOU LOST!")
-		return
+
 

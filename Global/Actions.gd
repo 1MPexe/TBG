@@ -26,7 +26,7 @@ func process_command(input: String):
 			help()
 		"attack":
 			attack(words)
-			Ply.emit_signal("action_done") 
+			
 		"i'm":
 			im(words[1])
 			
@@ -45,14 +45,18 @@ func im(person: String):
 
 
 func go(place: String):
+	#if no place typed
 	if place == "":
 		return Terminal.add_input_response("Go where?")
-
+	#If in a battle, Ignore command
+	if State.game_state == State.BATTLE:
+		return Terminal.add_input_response("You are in a battle.")
+		
 	return Terminal.add_input_response("You go %s." % place)
 
 
 func help():
-	return Terminal.add_input_response("You can use these commands: 'go [location]' , 'help' , 'attack [thing]'")
+	return Terminal.add_input_response("You can use these commands: 'go [location]' , 'help' , 'attack [thing] [number]'")
 
 
 enum {COMMAND,ENEMY,INDEX}
@@ -98,9 +102,10 @@ func attack(words : Array):
 	# Player miss
 	if my_number == 0:
 		Terminal.add_response("You attack the %s but stumble and miss!" % [words[ENEMY]])
-	
+		Ply.emit_signal("action_done")
 	# Player damages enemy health
 	else:
+		Ply.emit_signal("action_done") 
 		Core.active_enemies[words[ENEMY]][index].damage(my_number)
 		Terminal.add_response("The %s was struck for %s damage!" % [words[ENEMY].capitalize(), my_number])
 	
@@ -115,7 +120,7 @@ func attack(words : Array):
 		Core.active_enemies[words[ENEMY]][index].die()
 		Core.active_enemies[words[ENEMY]].remove(index)
 	
-	
+	check_enemies()
 	return ""
 
 
@@ -123,16 +128,10 @@ func attack(words : Array):
 func check_enemies():
 	#If there are no more enemies run the win function
 	if Core.get_all_enemies().size() <= 0:
-		Win()
+		Core.Win()
 	
 	
-func Win():
-	if State.game_state == State.IDLE: return
-	else:
-		State.set_game_state(State.WIN)
-		Terminal.add_response("You Won!")
-		
-		print(State.game_state)
+
 
 
 
