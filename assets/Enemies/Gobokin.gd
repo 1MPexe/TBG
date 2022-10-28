@@ -1,41 +1,35 @@
-extends Control
+extends Node2D
 
 var enemy_name = "Gobokin"
 var max_health = 25
 var health = 25
 var max_attack_power = 10
 var attack_margin = 5
-var miss_chance = 100
+var trip_chance = 10
 
 func _ready():
 	$EnemyHealthBar.max_value = max_health
 	$EnemyHealthBar.value = health
 	$EnemyHealthBar/EnemyHealth.text = "HP:%s/%s" % [health, max_health]
-	rect_scale = Vector2(448,280)
 
 func run_anim():
-	var chance : int
-	chance = Utility.random_number(100)
-	if chance > 10:
-		$AnimationPlayer.play("attack")
-	else:
-		Core.emit_signal('fled')
-		flee()
 
-	
+	# Miss chance
+	if Utility.percent_chance(trip_chance):
+		$AnimationPlayer.play("trip")
+		return Terminal.add_response("The Gobokin tripped and fell...")
 
+	# Attack Chance
+	if Utility.percent_chance(90):
+		return $AnimationPlayer.play("attack")
 
-
-
+	# Flee if all else fails
+	Core.emit_signal('fled')
+	flee()
 
 
 
 func attack():
-	# Percent chace to miss out of 100
-	if Utility.random_number(100) < miss_chance:
-		$AnimationPlayer.play("trip")
-		return Terminal.add_response("The Gobokin tripped and fell...")
-
 	# set attack power with a margin of error
 	var attack_power = max_attack_power - Utility.random_number(attack_margin)
 	Ply.health -= attack_power

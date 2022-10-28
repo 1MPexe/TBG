@@ -596,13 +596,8 @@ margin_right = 992.0
 margin_bottom = 408.0
 rect_clip_content = true
 
-[node name="Enemies" type="HBoxContainer" parent="Battle"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 40.0
-margin_right = 8.0
-margin_bottom = -80.0
-alignment = 1
+[node name="Enemies" type="Node2D" parent="Battle"]
+position = Vector2( 160, 175 )
 
 [node name="Menus" type="ColorRect" parent="."]
 margin_left = 16.0
